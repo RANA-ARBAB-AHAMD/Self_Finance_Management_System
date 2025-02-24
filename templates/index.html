@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Management System</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+        .navbar a {
+            color: #f2f2f2;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        header {
+            width: 100%;
+            padding-top: 60px; /* Ensure enough space is above for navbar */
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        .form-container {
+            width: 70%; /* Increased width for the form container */
+            max-width: 800px; /* Adjust max-width to allow more space */
+            padding: 40px; /* Increase padding for better spacing inside the form */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: #fff;
+            margin: 120px 0 20px; /* Adjusted margin for vertical spacing */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"], input[type="number"], button {
+            width: 100%; /* Ensuring they take full width of the form container */
+            padding: 20px; /* Increased padding for larger touch area */
+            margin: 15px 0; /* More margin for clearer separation */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 18px; /* Larger font size for better readability */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 20px; /* Even larger font size for better visibility */
+            padding: 25px; /* More padding for a bigger button */
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('view_month_expenses', month='January') }}" class="month">January</a>
+        <a href="{{ url_for('view_month_expenses', month='February') }}" class="month">February</a>
+        <a href="{{ url_for('view_month_expenses', month='March') }}" class="month">March</a>
+        <a href="{{ url_for('view_month_expenses', month='April') }}" class="month">April</a>
+        <a href="{{ url_for('view_month_expenses', month='May') }}" class="month">May</a>
+        <a href="{{ url_for('view_month_expenses', month='June') }}" class="month">June</a>
+        <a href="{{ url_for('view_month_expenses', month='July') }}" class="month">July</a>
+        <a href="{{ url_for('view_month_expenses', month='August') }}" class="month">August</a>
+        <a href="{{ url_for('view_month_expenses', month='September') }}" class="month">September</a>
+        <a href="{{ url_for('view_month_expenses', month='October') }}" class="month">October</a>
+        <a href="{{ url_for('view_month_expenses', month='November') }}" class="month">November</a>
+        <a href="{{ url_for('view_month_expenses', month='December') }}" class="month">December</a>
+    </div>
+    
+    <header>Welcome to the Finance Management System</header>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="flashes">
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <div class="form-container">
+        <form action="{{ url_for('add_expense') }}" method="POST">
+            <input type="text" id="month" name="month" placeholder="Name of the Month" required>
+            <input type="text" id="product_name" name="product_name" placeholder="Name of the Product" required>
+            <input type="number" id="amount" name="amount" placeholder="Amount of the Product" required>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</body>
+</html>

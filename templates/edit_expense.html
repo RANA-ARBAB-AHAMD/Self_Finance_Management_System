@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Expense</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        header {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            width: 100%;
+            margin-top: 20px; /* Added margin to push down the form from the top */
+        }
+        .form-container {
+            width: 70%;
+            max-width: 800px;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: #fff;
+            margin: 20px 0; /* Reduced margin for less vertical space on edit */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"], input[type="number"], button {
+            width: 100%;
+            padding: 10px; /* Reduced padding for a more compact form */
+            margin: 10px 0; /* Reduced margin for tighter layout */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 18px; /* Slightly smaller font size for button */
+            padding: 15px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none;
+            color: #4682b4;
+            font-size: 16px;
+            margin-top: 15px; /* Some space above the back link */
+        }
+    </style>
+</head>
+<body>
+    <header>Edit Expense</header>
+    <div class="form-container">
+        <form action="{{ url_for('edit_expense', expense_id=expense.id) }}" method="post">
+            <label for="month">Month:</label>
+            <input type="text" id="month" name="month" value="{{ expense.month if not errors.get('month') else request.form['month'] }}" required>
+            {% if errors.get('month') %}
+                <div class="error">{{ errors['month'] }}</div>
+            {% endif %}
+            <label for="product_name">Product Name:</label>
+            <input type="text" id="product_name" name="product_name" value="{{ expense.product_name }}" required>
+            <label for="amount">Amount ($):</label>
+            <input type="number" id="amount" name="amount" value="{{ expense.amount if not errors.get('amount') else request.form['amount'] }}" required>
+            {% if errors.get('amount') %}
+                <div class="error">{{ errors['amount'] }}</div>
+            {% endif %}
+            <button type="submit">Update Expense</button>
+        </form>
+        <a href="{{ url_for('view_month_expenses', month=expense.month) }}">Back to Expenses</a>
+    </div>
+</body>
+</html>
